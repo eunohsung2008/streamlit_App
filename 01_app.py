@@ -74,7 +74,7 @@ st.markdown(
 # ==============================
 # API KEY
 # ==============================
-TMDB_API_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNjNjMzM0OWY2NzNlMzk3MzdhNjJkNThlZTgwMTY5YiIsIm5iZiI6MTc4MzkxMDQ4Mi45MDksInN1YiI6IjZhNTQ1MDUyYTQxNTFhMWVlMWRjY2Q3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.2DbURzSYyCNG-khQIm-6EcDnfR7lXd-_vxteGzZsflM"
+TMDB_API_KEY = "f63c3349f673e39737a62d58ee80169b"
 API_KEY = st.secrets["TMDB_API_KEY"]
 
 headers = {

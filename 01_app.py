@@ -75,7 +75,7 @@ st.markdown(
 # API KEY
 # ==============================
 
-API_KEY = st.secrets["TMDB_API_KEY"]
+API_KEY = st.secrets["eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNjNjMzM0OWY2NzNlMzk3MzdhNjJkNThlZTgwMTY5YiIsIm5iZiI6MTc4MzkxMDQ4Mi45MDksInN1YiI6IjZhNTQ1MDUyYTQxNTFhMWVlMWRjY2Q3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.2DbURzSYyCNG-khQIm-6EcDnfR7lXd-_vxteGzZsflM"]
 
 headers = {
     "accept": "application/json"

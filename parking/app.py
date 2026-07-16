@@ -15,7 +15,7 @@ st.set_page_config(
     layout="wide",
 )
 
-DEFAULT_CSV = Path(__file__).with_name("서울시 공영주차장 안내 정보 (1).csv")
+DEFAULT_CSV = Path(__file__).with_name("서울시 공영주차장 안내 정보.csv")
 SEOUL_CENTER = {"lat": 37.5665, "lon": 126.9780}
 
 REQUIRED_COLUMNS = [

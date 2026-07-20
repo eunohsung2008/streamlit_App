@@ -92,7 +92,7 @@ st.markdown(
 # ---------------------------------------------------------
 # 상수
 # ---------------------------------------------------------
-FONT_PATH = Path("fonts/NanumGothic.ttf")
+FONT_PATH = Path("youtube/NanumGothic.ttf")
 
 KOREAN_STOPWORDS = {
     "영상",
@@ -465,7 +465,7 @@ def make_wordcloud(
 ):
     if not FONT_PATH.exists():
         raise FileNotFoundError(
-            "fonts/NanumGothic.ttf 파일을 찾을 수 없습니다."
+            "youtube/NanumGothic.ttf 파일을 찾을 수 없습니다."
         )
 
     wordcloud = WordCloud(
@@ -1175,7 +1175,7 @@ if (
 
         except FileNotFoundError:
             st.error(
-                "`fonts/NanumGothic.ttf` 파일을 찾을 수 없습니다. "
+                "`youtube/NanumGothic.ttf` 파일을 찾을 수 없습니다. "
                 "GitHub 저장소에 `fonts` 폴더를 만들고 "
                 "나눔고딕 TTF 파일을 업로드해 주세요."
             )

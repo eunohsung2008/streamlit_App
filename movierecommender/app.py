@@ -710,7 +710,7 @@ requests>=2.31,<3.0
 secrets_example = '''TMDB_API_KEY = "여기에_TMDB_API_KEY를_입력하세요"
 '''
 
-gitignore = '''.streamlit/secrets.toml
+gitignore = '''.movierecommender/secrets.toml
 __pycache__/
 *.pyc
 '''
@@ -742,5 +742,5 @@ TMDB 계정에서 API Key(v3 auth)를 발급받습니다.
 cinema_movie_recommender/
 ├─ app.py
 ├─ requirements.txt
-└─ .streamlit/
+└─ .movierecommender/
    └─ secrets.toml

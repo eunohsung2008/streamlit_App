@@ -332,19 +332,37 @@ def discover_movies(
         else f"{decade_end}-12-31"
     )
 
-    data = api_call(
-        "/discover/movie",
-        language="ko-KR",
-        include_adult="false",
-        include_video="false",
-        primary_release_date_gte=start_date,
-        primary_release_date_lte=end_date,
-        with_genres=",".join(map(str, genre_ids)) if genre_ids else None,
-        sort_by=sort_by,
-        vote_count_gte=min_votes,
-        page=page,
+    # TMDB의 날짜·평가 수 필터 이름에는 밑줄(_)이 아니라 점(.)이 들어간다.
+    # 예: primary_release_date.gte, vote_count.gte
+    params = {
+        "language": "ko-KR",
+        "include_adult": "false",
+        "include_video": "false",
+        "primary_release_date.gte": start_date,
+        "primary_release_date.lte": end_date,
+        "with_genres": ",".join(map(str, genre_ids)) if genre_ids else None,
+        "sort_by": sort_by,
+        "vote_count.gte": min_votes,
+        "page": page,
+    }
+    clean_params = tuple(
+        sorted(
+            (key, value)
+            for key, value in params.items()
+            if value not in (None, "", [])
+        )
     )
-    return data.get("results", [])
+    data = tmdb_get("/discover/movie", clean_params)
+
+    # API 응답에 잘못된 연도의 작품이 섞이더라도 화면에 표시되지 않도록
+    # ISO 형식의 개봉일을 다시 한 번 엄격하게 검사한다.
+    filtered_results: list[dict[str, Any]] = []
+    for movie in data.get("results", []):
+        movie_release_date = movie.get("release_date") or ""
+        if len(movie_release_date) == 10 and start_date <= movie_release_date <= end_date:
+            filtered_results.append(movie)
+
+    return filtered_results
 
 
 def search_movies_by_title(query: str) -> list[dict[str, Any]]:

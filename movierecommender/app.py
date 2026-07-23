@@ -1,10 +1,3 @@
-from pathlib import Path
-import textwrap, zipfile
-
-base = Path("/mnt/data/cinema_movie_recommender")
-base.mkdir(exist_ok=True)
-
-app_code = r'''
 from __future__ import annotations
 
 import random
@@ -333,7 +326,11 @@ def discover_movies(
 ) -> list[dict[str, Any]]:
     start_date = f"{decade}-01-01"
     decade_end = min(decade + 9, CURRENT_YEAR)
-    end_date = f"{decade_end}-12-31"
+    end_date = (
+        date.today().isoformat()
+        if decade == CURRENT_DECADE
+        else f"{decade_end}-12-31"
+    )
 
     data = api_call(
         "/discover/movie",
@@ -701,46 +698,3 @@ with search_tab:
                 )
             except TMDBError as error:
                 st.error(str(error))
-'''
-
-requirements = '''streamlit>=1.40,<2.0
-requests>=2.31,<3.0
-'''
-
-secrets_example = '''TMDB_API_KEY = "여기에_TMDB_API_KEY를_입력하세요"
-'''
-
-gitignore = '''.movierecommender/secrets.toml
-__pycache__/
-*.pyc
-'''
-
-readme = r'''
-# CINEMA ARCHIVE
-
-Streamlit Community Cloud에서 실행하는 영화 추천·검색 사이트입니다.
-
-## 주요 기능
-
-- 1900년대부터 현재 연대까지 10년 단위 선택
-- 장르 복수 선택
-- 인기순, 평점순, 개봉일순 정렬
-- 영화 제목 검색
-- 감독명 및 배우 이름 검색
-- 포스터, 평점, 줄거리, 감독, 주요 출연진, 장르, 상영 시간 표시
-- 영화관 스크린과 어두운 상영관을 표현한 UI
-
-## 1. TMDB API 키 준비
-
-TMDB 계정에서 API Key(v3 auth)를 발급받습니다.
-
-## 2. 로컬 실행
-
-프로젝트 폴더에서 다음 구조를 만듭니다.
-
-```text
-cinema_movie_recommender/
-├─ app.py
-├─ requirements.txt
-└─ .movierecommender/
-   └─ secrets.toml

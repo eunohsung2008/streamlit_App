@@ -60,7 +60,7 @@ class LocalStore:
                     title TEXT NOT NULL,
                     content TEXT NOT NULL,
                     lookup_hash TEXT NOT NULL UNIQUE,
-                    status TEXT NOT NULL DEFAULT 'ì ì',
+                    status TEXT NOT NULL DEFAULT '접수',
                     reply TEXT NOT NULL DEFAULT '',
                     created_at TEXT NOT NULL,
                     updated_at TEXT NOT NULL
@@ -74,7 +74,7 @@ class LocalStore:
                     problem TEXT NOT NULL,
                     solution TEXT NOT NULL,
                     source TEXT NOT NULL DEFAULT '',
-                    author_alias TEXT NOT NULL DEFAULT 'ìµëª',
+                    author_alias TEXT NOT NULL DEFAULT '익명',
                     problem_image_url TEXT NOT NULL DEFAULT '',
                     problem_image_path TEXT NOT NULL DEFAULT '',
                     solution_image_url TEXT NOT NULL DEFAULT '',
@@ -137,7 +137,7 @@ class LocalStore:
                 INSERT INTO suggestions(
                     category, title, content, lookup_hash, status,
                     reply, created_at, updated_at
-                ) VALUES (?, ?, ?, ?, 'ì ì', '', ?, ?)
+                ) VALUES (?, ?, ?, ?, '접수', '', ?, ?)
                 """,
                 (category, title, content, lookup_hash, timestamp, timestamp),
             )
@@ -198,7 +198,7 @@ class LocalStore:
                     post["problem"],
                     post["solution"],
                     post.get("source", ""),
-                    post.get("author_alias", "ìµëª"),
+                    post.get("author_alias", "익명"),
                     post.get("problem_image_url", ""),
                     post.get("problem_image_path", ""),
                     post.get("solution_image_url", ""),
@@ -229,7 +229,7 @@ class SupabaseStore:
         try:
             from supabase import create_client
         except ImportError as exc:  # pragma: no cover - deployment guard
-            raise DataStoreError("supabase í¨í¤ì§ê° ì¤ì¹ëì´ ìì§ ììµëë¤.") from exc
+            raise DataStoreError("supabase 패키지가 설치되어 있지 않습니다.") from exc
 
         self.client = create_client(url, key)
         self.bucket = bucket
@@ -335,7 +335,7 @@ class SupabaseStore:
             "problem": post["problem"],
             "solution": post["solution"],
             "source": post.get("source", ""),
-            "author_alias": post.get("author_alias", "ìµëª"),
+            "author_alias": post.get("author_alias", "익명"),
             "problem_image_url": post.get("problem_image_url", ""),
             "problem_image_path": post.get("problem_image_path", ""),
             "solution_image_url": post.get("solution_image_url", ""),
@@ -379,3 +379,4 @@ class SupabaseStore:
                     # was already deleted from Storage.
                     pass
         self.client.table("study_posts").delete().eq("id", post_id).execute()
+

@@ -8,6 +8,7 @@ import os
 import re
 import secrets
 import string
+import sys
 import time
 from datetime import datetime
 from pathlib import Path
@@ -17,10 +18,18 @@ from zoneinfo import ZoneInfo
 import streamlit as st
 from PIL import Image, UnidentifiedImageError
 
+# Streamlit Community Cloud executes from the repository root even when the
+# entrypoint is inside a subdirectory. Add that root explicitly so this app can
+# reliably import shared modules and locate shared assets in both Cloud and
+# local runs: streamlit run 311/app.py
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
 from data_store import LocalStore, SupabaseStore
 
 
-APP_DIR = Path(__file__).parent
+APP_DIR = REPO_ROOT
 KST = ZoneInfo("Asia/Seoul")
 SUBJECTS = [
     "국어",
